@@ -1,11 +1,33 @@
 import { useState } from "react";
+import { Socket } from "socket.io-client";
 
-const Chat = () => {
+interface ChatProps {
+  socket: Socket;
+  username: string;
+  room: string;
+}
+
+const Chat = ({ socket, username, room }: ChatProps) => {
   const [currentMessage, setCurrentMessage] = useState<string>("");
 
-  const sendMessage = () => {
-    console.log(currentMessage);
+  const sendMessage = async () => {
+    if (currentMessage !== "") {
+      const messageData = {
+        message: currentMessage,
+        author: username,
+        room: room,
+        time:
+          new Date(Date.now()).getHours() +
+          ":" +
+          new Date(Date.now()).getMinutes(),
+      };
+      await socket.emit("send_message", messageData);
+    }
   };
+
+  socket.on("receive_message", (data) => {
+    console.log(data);
+  });
 
   return (
     <div>

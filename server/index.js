@@ -23,6 +23,11 @@ io.on("connection", (socket) => {
     console.log(`UserId:${socket.id}, ${data} in join!!`);
   });
 
+  socket.on("send_message", (data) => {
+    console.log(data);
+    socket.to(data.room).emit("receive_message", data);
+  });
+
   socket.on("disconnect", () => {
     console.log("a user disconnected:" + "socket-id" + socket.id);
   });

@@ -36,7 +36,7 @@ function App() {
             Join Room
           </button>
         </div>
-        <Chat />
+        <Chat socket={socket} username={username} room={room} />
       </div>
     </>
   );
