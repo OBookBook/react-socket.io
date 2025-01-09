@@ -47,8 +47,12 @@ const Chat = ({ socket, username, room }: ChatProps) => {
         </div>
         <div className="chat-body">
           {messageLists.map((res, index) => (
-            <div key={index}>
+            <div key={index} id={username == res.author ? "you" : "other"}>
               <p>{res.message}</p>
+              <div className="message-meta">
+                <p className="time">{res.time}</p>
+                <p className="author">{res.author}</p>
+              </div>
             </div>
           ))}
         </div>

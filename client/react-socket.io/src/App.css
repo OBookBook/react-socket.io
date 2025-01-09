@@ -55,3 +55,10 @@
 .join-chat__button:active {
   background-color: #388e3c;
 }
+
+#you {
+  text-align: right;
+}
+#other {
+  text-align: left;
+}
