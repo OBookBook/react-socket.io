@@ -1,9 +1,20 @@
+import { useState } from "react";
 import "./App.css";
 import { io } from "socket.io-client"; // socket.io/docs/v4/client-initialization/
 
 const socket = io("http://localhost:5000");
 
 function App() {
+  const [username, SetUserName] = useState<string>("");
+  const [room, setRoom] = useState<string>("");
+
+  const joinRoom = () => {
+    if (username !== "" && room !== "") {
+      console.log(username);
+      console.log(room);
+    }
+  };
+
   return (
     <>
       <div className="app">
@@ -13,13 +24,17 @@ function App() {
             className="join-chat__input join-chat__input--name"
             type="text"
             placeholder="Name"
+            onChange={(e) => SetUserName(e.target.value)}
           />
           <input
             className="join-chat__input join-chat__input--room"
             type="text"
             placeholder="Room Number"
+            onChange={(e) => setRoom(e.target.value)}
           />
-          <button className="join-chat__button">Join Room</button>
+          <button className="join-chat__button" onClick={() => joinRoom()}>
+            Join Room
+          </button>
         </div>
       </div>
     </>
