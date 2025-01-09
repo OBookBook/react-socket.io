@@ -10,8 +10,7 @@ function App() {
 
   const joinRoom = () => {
     if (username !== "" && room !== "") {
-      console.log(username);
-      console.log(room);
+      socket.emit("join_room", room);
     }
   };
 
