@@ -46,8 +46,10 @@ const Chat = ({ socket, username, room }: ChatProps) => {
           <p>ライブチャット</p>
         </div>
         <div className="chat-body">
-          {messageLists.map((res) => (
-            <p>{res.message}</p>
+          {messageLists.map((res, index) => (
+            <div key={index}>
+              <p>{res.message}</p>
+            </div>
           ))}
         </div>
         <div className="chat-fotter">
