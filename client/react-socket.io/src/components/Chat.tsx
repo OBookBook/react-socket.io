@@ -7,12 +7,20 @@ interface ChatProps {
   room: string;
 }
 
+interface Message {
+  message: string;
+  author: string;
+  room: string;
+  time: string;
+}
+
 const Chat = ({ socket, username, room }: ChatProps) => {
   const [currentMessage, setCurrentMessage] = useState<string>("");
+  const [messageLists, setMessageList] = useState<Message[]>([]);
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
-      const messageData = {
+      const messageData: Message = {
         message: currentMessage,
         author: username,
         room: room,
@@ -22,11 +30,12 @@ const Chat = ({ socket, username, room }: ChatProps) => {
           new Date(Date.now()).getMinutes(),
       };
       await socket.emit("send_message", messageData);
+      setCurrentMessage("");
     }
   };
 
-  socket.on("receive_message", (data) => {
-    console.log(data);
+  socket.on("receive_message", (data: Message) => {
+    setMessageList([...messageLists, data]);
   });
 
   return (
@@ -35,12 +44,17 @@ const Chat = ({ socket, username, room }: ChatProps) => {
         <div className="chat-header">
           <p>ライブチャット</p>
         </div>
-        <div className="chat-body"></div>
+        <div className="chat-body">
+          {messageLists.map((res) => (
+            <p>{res.message}</p>
+          ))}
+        </div>
         <div className="chat-fotter">
           <input
             type="text"
             placeholder="add message"
             onChange={(e) => setCurrentMessage(e.target.value)}
+            value={currentMessage}
           />
           <button onClick={() => sendMessage()}>&#9658;</button>
         </div>
