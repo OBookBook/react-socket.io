@@ -59,6 +59,12 @@
 #you {
   text-align: right;
 }
+
 #other {
   text-align: left;
+}
+
+.message-container {
+  overflow-y: scroll;
+  overflow-x: hidden;
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Socket } from "socket.io-client";
+import ScrollToBottom from "react-scroll-to-bottom";
 
 interface ChatProps {
   socket: Socket;
@@ -46,15 +47,17 @@ const Chat = ({ socket, username, room }: ChatProps) => {
           <p>ライブチャット</p>
         </div>
         <div className="chat-body">
-          {messageLists.map((res, index) => (
-            <div key={index} id={username == res.author ? "you" : "other"}>
-              <p>{res.message}</p>
-              <div className="message-meta">
-                <p className="time">{res.time}</p>
-                <p className="author">{res.author}</p>
+          <ScrollToBottom className="message-container">
+            {messageLists.map((res, index) => (
+              <div key={index} id={username == res.author ? "you" : "other"}>
+                <p>{res.message}</p>
+                <div className="message-meta">
+                  <p className="time">{res.time}</p>
+                  <p className="author">{res.author}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </ScrollToBottom>
         </div>
         <div className="chat-fotter">
           <input
