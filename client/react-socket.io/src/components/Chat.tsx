@@ -30,6 +30,7 @@ const Chat = ({ socket, username, room }: ChatProps) => {
           new Date(Date.now()).getMinutes(),
       };
       await socket.emit("send_message", messageData);
+      setMessageList([...messageLists, messageData]);
       setCurrentMessage("");
     }
   };
