@@ -1,13 +1,15 @@
-// @Doc https://socket.io/docs/v4/tutorial/step-1
-const express = require("express");
+const express = require("express"); // @Doc https://socket.io/docs/v4/tutorial/step-1
 const { createServer } = require("node:http");
-// @Doc https://socket.io/docs/v4/tutorial/step-3
-const { Server } = require("socket.io");
+const { Server } = require("socket.io"); // @Doc https://socket.io/docs/v4/tutorial/step-3
 
 const app = express();
 const server = createServer(app);
-
-const io = new Server(server);
+const io = new Server(server, {
+  // @Doc https://socket.io/docs/v4/handling-cors/
+  cors: {
+    origin: "http://localhost:5173",
+  },
+});
 
 app.get("/", (req, res) => {
   res.send("<h1>Hello world</h1>");

@@ -1,4 +1,7 @@
 import "./App.css";
+import { io } from "socket.io-client"; // socket.io/docs/v4/client-initialization/
+
+const socket = io("http://localhost:5000");
 
 function App() {
   return (
